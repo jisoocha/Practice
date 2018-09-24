@@ -15,9 +15,45 @@
 # In the sense, it should be checked for every pair of characters in the string.
 #
 
-def solution(text):
-    return True
+
+class Solution:
+    def __init__(self):
+        self.test_cases = [('abab', True),
+                           ('abba', False),
+                           ('acbdaghfb', True),
+                           ('abcdacb', True)]
+
+    def generate_character_pairs(self):
+        characters = 'abcdefghijklmnopqrstuvwxyz'
+        return [(l1, l2) for l1 in characters for l2 in characters]
+
+    def sub_sequence_repeats(self, text):
+        character_pairs = self.generate_character_pairs()
+
+        for (l1, l2) in character_pairs:
+
+            # s1: l1 ('a') detected, s2: l1 & l2 ('a..b') detected once
+            s1, s2 = False, False
+
+            for l in text:
+                if not s1:
+                    if l == l1:
+                        s1 = True
+                else:
+                    if l == l2:
+                        if not s2:
+                            s1 = False
+                            s2 = True
+                        else:
+                            return True
+        return False
+
+    def test(self):
+        for test_case in self.test_cases:
+            if self.sub_sequence_repeats(test_case[0]) != test_case[1]:
+                return False
+        return True
+
 
 if __name__ == '__main__':
-    print(solution('abab'))
-    print(True)
+    print(Solution().test())
