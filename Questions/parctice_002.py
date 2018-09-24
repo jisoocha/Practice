@@ -19,4 +19,5 @@ def solution(text):
     return True
 
 if __name__ == '__main__':
-    print solution('abab')
+    print(solution('abab'))
+    print(True)
